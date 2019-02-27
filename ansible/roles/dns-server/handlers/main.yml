@@ -1,0 +1,21 @@
+---
+- name: restart dnsmasq
+  service:
+    name: dnsmasq
+    state: restarted
+  listen: "restart dnsmasq"
+- name: restart firewalld
+  service:
+    name: firewalld
+    state: restarted
+  listen: "restart firewalld"
+- name: restart iptables
+  service:
+    name: iptables
+    state: restarted
+  listen: "restart iptables"
+- name: save iptables
+  command: iptables-save
+  become: true
+  listen: "save iptables"
+  

@@ -1,0 +1,39 @@
+# Create an OSEv3 group that contains the masters, nodes, and etcd groups
+[OSEv3:children]
+masters
+nodes
+etcd
+
+[all:vars]
+openshift_router_server=node1.openshift.local
+openshift_nameserver=192.168.1.114
+external_nameserver=192.168.1.1
+
+# Set variables common for all OSEv3 hosts
+[OSEv3:vars]
+ansible_ssh_user=root
+ansible_become=true
+openshift_deployment_type=openshift-enterprise
+openshift_disable_check=memory_availability
+oreg_url=registry.access.redhat.com/openshift3/ose-${component}:${version}
+openshift_examples_modify_imagestreams=true
+oreg_user=
+oreg_password=
+
+# host group for masters
+[masters]
+master.openshift.local
+
+# host group for etcd
+[etcd]
+master.openshift.local
+
+# host group for nodes, includes region info
+[nodes]
+master.openshift.local openshift_node_group_name='node-config-master' ansible_host=192.168.1.115 ansible_port=22
+node1.openshift.local openshift_node_group_name='node-config-compute' ansible_host=192.168.1.116 ansible_port=22
+node2.openshift.local openshift_node_group_name='node-config-infra' ansible_host=192.168.1.117 ansible_port=22
+
+[dnsmasq_server]
+dns.openshift.local ansible_host=192.168.1.114 ansible_port=22
+

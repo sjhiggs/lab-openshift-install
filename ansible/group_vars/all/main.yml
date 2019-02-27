@@ -1,0 +1,9 @@
+---
+ansible_connection: ssh
+ansible_user: root
+ansible_ssh_pass: "{{ secret_ansible_ssh_pass }}"
+subscription_user: "{{ secret_subscription_user }}"
+subscription_password: "{{ secret_subscription_password }}"
+subscription_pool: "{{ secret_subscription_pool }}"
+oreg_user: "{{ secret_subscription_user }}"
+oreg_password: "{{ secret_subscription_password }}"

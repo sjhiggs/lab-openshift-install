@@ -1,0 +1,8 @@
+---
+- name: install dns server
+  hosts: dnsmasq_server
+  become: true
+  roles:
+    - role: "lab-common"
+    - role: "nested-virtualization"
+    - role: "dns-server"

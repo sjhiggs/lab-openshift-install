@@ -1,0 +1,45 @@
+---
+#- name: install dnsmasq 
+#  package:
+#    name: dnsmasq
+#    state: present
+#  tags:
+#    - install
+- name: enable/start dnsmasq
+  service:
+    name: dnsmasq
+    state: started
+    enabled: yes
+  tags:
+    - install
+- name: add all hosts to dnsmasq config
+  lineinfile:
+    dest: /etc/dnsmasq.conf
+    regexp: '^(?!.*apps).*{{ item }}.*$'
+    line: "address=/{{item}}/{{ hostvars[item].ansible_host }}"
+    state: present
+  when: hostvars[item].ansible_host is defined
+  with_items: "{{ groups.all }}"
+  notify: "restart dnsmasq"
+  tags:
+    - configure
+- name: add router wildcard to dnsmasq config
+  lineinfile:
+    dest: /etc/dnsmasq.conf
+    regexp: '.*apps.*$'
+    line: "address=/*.apps.{{ openshift_router_server }}/{{ hostvars[openshift_router_server].ansible_host }}"
+    state: present
+  notify: "restart dnsmasq"
+  tags:
+    - configure
+
+- name: iptables template
+  template:
+    src: iptables.j2
+    dest: /etc/sysconfig/iptables
+  notify:
+    - restart iptables
+  tags:
+    - configure
+
+

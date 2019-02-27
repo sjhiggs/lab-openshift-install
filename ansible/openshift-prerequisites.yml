@@ -1,0 +1,7 @@
+---
+- name: install openshift nodes
+  hosts: nodes
+  become: true
+  roles:
+    - role: "nested-virtualization"
+    - role: "lab-common"
