@@ -86,10 +86,10 @@ virt-install \
     --cpu Broadwell,require=vmx \
     --vcpus $CPUS \
     --disk pool=$POOL,size=$SIZE\
-    --location /home/qemu/rhel-server-7.4-x86_64-dvd.iso \
+    --location /home/qemu/rhel-server-7.7-x86_64-dvd.iso \
     --os-variant rhel7 \
     --graphics none \
-    --network bridge=br-ex \
+    --network bridge=br0 \
     --initrd-inject $KICKSTART_FULL_PATH \
     --console pty,target_type=serial \
     --extra-args 'ks=file:/ks-openshift-'"$SERVER_NAME.cfg"' console=ttyS0,115200n8 serial'
