@@ -1,10 +1,10 @@
 ---
-#- name: install dnsmasq 
-#  package:
-#    name: dnsmasq
-#    state: present
-#  tags:
-#    - install
+- name: install dnsmasq 
+  package:
+    name: dnsmasq
+    state: present
+  tags:
+    - install
 - name: enable/start dnsmasq
   service:
     name: dnsmasq
