@@ -4,4 +4,5 @@
   become: true
   roles:
     - role: "nested-virtualization"
+    - role: "lab-redhat"
     - role: "lab-common"

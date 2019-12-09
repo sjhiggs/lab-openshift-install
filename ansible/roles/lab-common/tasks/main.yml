@@ -2,26 +2,6 @@
 - name: set hostname
   hostname: 
     name: "{{inventory_hostname}}"
-- name: subscribe to redhat
-  redhat_subscription:
-    state: present
-    force_register: false
-    username: "{{subscription_user}}"
-    password: "{{subscription_password}}"
-    pool_ids: "{{subscription_pool}}"
-- name: Disable all RHSM repositories
-  rhsm_repository:
-    name: '*'
-    state: disabled
-- name: enable required repos
-  rhsm_repository:
-    name: "{{ item }}"
-    state: enabled
-  with_items:
-    - "rhel-7-server-rpms"
-    - "rhel-7-server-extras-rpms"
-    - "rhel-7-server-ose-3.11-rpms"
-    - "rhel-7-server-ansible-2.6-rpms"
 - name: install prereq packages
   yum:
     name:

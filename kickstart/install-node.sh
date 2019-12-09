@@ -83,8 +83,8 @@ echo "kickstart full path: $KICKSTART_FULL_PATH"
 virt-install \
     --name $SERVER_NAME \
     --memory $MEMORY \
-    --cpu Broadwell,require=vmx \
     --vcpus $CPUS \
+    --cpu host,require=vmx \
     --disk pool=$POOL,size=$SIZE\
     --location /home/qemu/rhel-server-7.7-x86_64-dvd.iso \
     --os-variant rhel7 \
